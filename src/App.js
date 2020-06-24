@@ -1,24 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
+import Modal from './components/Modal/Modal'
 import './App.css';
 
 function App() {
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          React Modal from scratch
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <button className="App-button" onClick={() => setIsOpen(true)}>
+          Open me!
+        </button>
       </header>
+      { isOpen && <Modal fade onClose={() => setIsOpen(false)}>
+        Hello World
+      </Modal> }
     </div>
   );
 }
