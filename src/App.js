@@ -7,21 +7,27 @@ function App() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          React Modal from scratch
-        </p>
-        <button className="App-button" onClick={() => setIsOpen(true)}>
-          Open me!
-        </button>
-      </header>
-      { isOpen && <Modal fade onClose={() => setIsOpen(false)}>
-        Hello World
-      </Modal> }
-    </div>
-  );
+    <>
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            React Modal from scratch
+          </p>
+          <a href="https://github.com/viclafouch/react-modal">Article on dev.to</a>
+          <a href="https://github.com/viclafouch/react-modal">Source code here</a>
+          <button className="App-button" onClick={() => setIsOpen(true)}>
+            Open me!
+          </button>
+        </header>
+      </div>
+      { isOpen &&
+        <Modal fade onClose={() => setIsOpen(false)}>
+          Hello World
+        </Modal>
+      }
+    </>
+  )
 }
 
 export default App;
