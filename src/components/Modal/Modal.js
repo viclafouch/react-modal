@@ -1,34 +1,42 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useImperativeHandle, useState, forwardRef, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import './modal.css'
 
 const modalElement = document.getElementById('modal-root')
 
-export function Modal({ onClose, children, fade = false }) {
+export function Modal({ children, fade = false }, ref) {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const close = useCallback(() => setIsOpen(false), [])
+
+  useImperativeHandle(ref, () => ({
+    open: () => setIsOpen(true),
+    close
+  }), [close])
+
+  const handleEscape = useCallback(event => {
+    if (event.keyCode === 27) close()
+  }, [close])
 
   useEffect(() => {
-    const handleEscape = event => {
-      if (event.keyCode === 27) onClose()
-    }
-
-    document.addEventListener('keydown', handleEscape, false)
+    if (isOpen) document.addEventListener('keydown', handleEscape, false)
     return () => {
       document.removeEventListener('keydown', handleEscape, false)
     }
-  }, [onClose])
+  }, [handleEscape, isOpen])
 
   return createPortal(
-    <div className={`modal ${fade ? 'modal-fade' : ''}`}>
-      <div className="modal-overlay" onClick={onClose} />
-      <span role="button" className="modal-close" aria-label="close" onClick={onClose}>
-        x
-      </span>
-      <div className="modal-body">
-        {children}
+    isOpen ? (
+      <div className={`modal ${fade ? 'modal-fade' : ''}`}>
+        <div className="modal-overlay" onClick={close} />
+        <span role="button" className="modal-close" aria-label="close" onClick={close}>
+          x
+        </span>
+        <div className="modal-body">{children}</div>
       </div>
-    </div>,
+    ) : null,
     modalElement
   )
 }
 
-export default Modal
+export default forwardRef(Modal)

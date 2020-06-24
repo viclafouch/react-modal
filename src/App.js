@@ -1,33 +1,29 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
+import React, { useRef } from 'react'
+import logo from './logo.svg'
 import Modal from './components/Modal/Modal'
-import './App.css';
+import './App.css'
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false)
+  const modal = useRef(null)
 
   return (
     <>
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            React Modal from scratch
-          </p>
+          <p>React Modal from scratch</p>
           <a href="https://github.com/viclafouch/react-modal">Article on dev.to</a>
           <a href="https://github.com/viclafouch/react-modal">Source code here</a>
-          <button className="App-button" onClick={() => setIsOpen(true)}>
+          <button className="App-button" onClick={() => modal.current.open()}>
             Open me!
           </button>
         </header>
       </div>
-      { isOpen &&
-        <Modal fade onClose={() => setIsOpen(false)}>
-          Hello World
-        </Modal>
-      }
+      <Modal fade ref={modal}>
+        Hello World
+      </Modal>
     </>
   )
 }
 
-export default App;
+export default App
