@@ -17,7 +17,7 @@
 }
 
 .modal.modal-fade {
-  animation: ld-fade-in 1s 1 linear;
+  animation: fade-in 1s 1 linear;
   animation-fill-mode: forwards;
   opacity: 0;
 }
@@ -67,12 +67,11 @@
   overflow-y: auto;
   max-height: 100%;
   padding: 15px 20px;
-  width: auto;
   color: #c3c0c0;
 }
 
 
-@keyframes ld-fade-in {
+@keyframes fade-in {
   0% {
     animation-timing-function: cubic-bezier(0.2242, 0.7499, 0.3142, 0.8148);
     opacity: 0;

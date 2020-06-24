@@ -4,8 +4,8 @@ import './modal.css'
 
 const modalElement = document.getElementById('modal-root')
 
-export function Modal({ children, fade = false }, ref) {
-  const [isOpen, setIsOpen] = useState(false)
+export function Modal({ children, fade = false, defaultOpened = false }, ref) {
+  const [isOpen, setIsOpen] = useState(defaultOpened)
 
   const close = useCallback(() => setIsOpen(false), [])
 
